@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var SodaModel = require('../models/SodaModel.js');
+var SodaController = require('../controller/SodaController.js');
 /*
 * GET
 */

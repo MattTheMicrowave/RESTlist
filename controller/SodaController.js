@@ -46,7 +46,8 @@ create: function (req, res) {
   update: function (req, res) {
     var id = req.params.id;
     SodaModel.findOne({_id: id}, function (err, soda) {
-          soda.soda(function (err, soda) {
+          soda.soda = req.body.soda ? req.body.soda : soda.soda;
+          soda.save(function (err, soda) {
             return res.json(soda);
           });
 
@@ -62,13 +63,8 @@ create: function (req, res) {
 
     remove: function (req, res) {
         var id = req.params.id;
-        SodaModel.findByIdAndRemove(id, function (err, task) {
+        SodaModel.findByIdAndRemove(id, function (err, soda) {
           return res.json(soda);
         });
-
     }
-
-
-
-
 };
