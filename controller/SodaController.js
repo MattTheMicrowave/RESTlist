@@ -32,7 +32,8 @@ list: function (req, res) {
      */
 create: function (req, res) {
   var soda = new SodaModel({
-        soda : req.body.soda
+        soda : req.body.soda,
+        quant : req.body.quant
   });
   soda.save(function (err, soda) {
       return res.json(soda);
@@ -47,6 +48,7 @@ create: function (req, res) {
     var id = req.params.id;
     SodaModel.findOne({_id: id}, function (err, soda) {
           soda.soda = req.body.soda ? req.body.soda : soda.soda;
+          soda.quant = req.body.quant ? req.body.quant : soda.quant;
           soda.save(function (err, soda) {
             return res.json(soda);
           });
