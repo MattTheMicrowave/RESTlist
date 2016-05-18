@@ -5,14 +5,20 @@ var SodaModel = require('../models/SodaModel.js');
 * GET
 */
 router.get('/', function (req, res) {
-
+SodaModel.find(function(err, sodas) {
+    return res.json(sodas);
+});
 });
 
 /*
 * GET
 */
 router.get('/:id', function (req, res) {
-
+  var id = req.params.id;
+  SodaModel.findOne({_id: id}, function(err, soda)
+{
+  return res.json(task);
+});
 });
 
 /*
@@ -36,14 +42,24 @@ router.post('/', function (req, res) {
 * PUT
 */
 router.put('/:id', function (req, res) {
+var id = req.params.id;
+SodaModel.findOne({_id: id}, function(err, task) {
+  soda.soda = req.body.soda ? req.body.soda : soda.soda;
 
+  soda.save(function(err, task){
+    return res.json(soda);
+  });
+});
 });
 
 /*
 * DELETE
 */
 router.delete('/:id', function (req, res) {
-
+var id = req.params.id;
+SodaModel.findByIdAndRemove(id, function(err, task){
+return res.json(task);
+});
 });
 
 module.exports = router;
