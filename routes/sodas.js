@@ -17,7 +17,7 @@ router.get('/:id', function (req, res) {
   var id = req.params.id;
   SodaModel.findOne({_id: id}, function(err, soda)
 {
-  return res.json(task);
+  return res.json(soda);
 });
 });
 
@@ -43,10 +43,10 @@ router.post('/', function (req, res) {
 */
 router.put('/:id', function (req, res) {
 var id = req.params.id;
-SodaModel.findOne({_id: id}, function(err, task) {
+SodaModel.findOne({_id: id}, function(err, soda) {
   soda.soda = req.body.soda ? req.body.soda : soda.soda;
 
-  soda.save(function(err, task){
+  soda.save(function(err, soda){
     return res.json(soda);
   });
 });
@@ -57,8 +57,8 @@ SodaModel.findOne({_id: id}, function(err, task) {
 */
 router.delete('/:id', function (req, res) {
 var id = req.params.id;
-SodaModel.findByIdAndRemove(id, function(err, task){
-return res.json(task);
+SodaModel.findByIdAndRemove(id, function(err, soda){
+return res.json(soda);
 });
 });
 

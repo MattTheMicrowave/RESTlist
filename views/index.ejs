@@ -7,5 +7,27 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
+
+    <form method="POST" action="/">
+        <input type="text" name='soda'>
+
+        <input type="submit" value="Submit">
+      </form>
+
+    &nbsp
+    <h2>Inventory</h2>
+
+      <ul>
+        <% for (soda in sodas) { %>
+          <li><%= sodas[soda]['soda'] %></li>
+          <% } %>
+        </ul>
+
+
+
+
+
+
   </body>
 </html>
