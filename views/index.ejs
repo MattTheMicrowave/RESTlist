@@ -9,11 +9,16 @@
     <p>Welcome to <%= title %></p>
 
 
-    
+    <form id="soda-form" method="POST" action="/sodas">
+          <input type="text" name="soda">
+          <input type="submit" value="Submit">
+        </form>
 
-
-
-
+<ul id="sodas-list"></ul>
+    <!-- loading jquery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+<script type="text/javascript" src="../javascripts/index.js"></script>
+<!-- why does this path work and the other does not? -->
 
   </body>
 </html>
