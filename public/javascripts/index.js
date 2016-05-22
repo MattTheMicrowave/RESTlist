@@ -17,17 +17,34 @@ $(document).ready(function() {
 
     });
 
+    function addListener() {
+      $('li').on('click', function(event) {
+        var target = $(event.currentTarget);
+        var id = target.data('id');
+
+        $.ajax('/sodas/' + id, {
+          method: 'DELETE',
+          success: function(data) {
+            target.detach();
+          }
+        })
+      });
+
+    }
+
+
     function appendSodas() {
       $.ajax('/sodas', {
         success: function(sodas) {
           sodas.forEach(function(soda) {
             appendSoda(soda);
           });
+          addListener();
         }
       });
     }
 
     function appendSoda(soda) {
-        $('#sodas-list').append('<li>' + soda.soda + '</li>');
+        $('#sodas-list').append('<li data-id ="' + soda._id + '">' + soda.soda + '</li>');
     }
 });
