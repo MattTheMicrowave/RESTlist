@@ -5,23 +5,60 @@
 
   });
 
+
+
   var SodasCollection = Backbone.Collection.extend({
       url: '/sodas',
       model: SodaModel
   });
 
-var sodasCollection = new SodasCollection();
+  var SodasView = Backbone.View.extend({
+      el: '<div></div>',
 
-sodasCollection.fetch({
-    /* inputs is a variable that fetch knows what to do with,
-    it does this by default, 'this' being grab out of the database,
-    so the function grabs out of the database and what it grabs
-    gets consolelogged in this instance */
-    success: function(inputs) {
-        sodasCollection.each(function(inputs) {
-            console.log(inputs.get('soda'));
-        });
+      template:  _.template('\
+          <ul>\
+              <% sodas.each(function(soda) { %>\
+                  <li><%= soda.get("soda") %></li>\
+              <% }) %>\
+          </ul>\
+      '),
 
-    }
+      render: function() {
+                  $(this.el).html(this.template({ sodas: this.collection }));
+
+                  return this;
+              }
+
+      // initialize: function() {
+      //     console.log('SodasView initialized!')
+      // }
+
+      });
+
+  var sodas = new SodasCollection();
+
+  sodas.fetch({
+      success: function() {
+
+          console.log(sodas);
+
+          var sodasView = new SodasView({ collection: sodas });
+
+          sodasView.render();
+
+          $("#sodas-list").html(sodasView.el);
+      }
+  });
+
+  $('#soda-form').on('submit', function() {
+      event.preventDefault();
+      var newsoda = new SodaModel;
+      newsoda.set({ soda : $('#soda-input').val() });
+      console.log(newsoda);
+      $("#sodas-list ul").append("<li>" + newsoda + "</li>");
+// using '#sodas-list ul' works but '#sodas-list > ul' does not, why???
+      newsoda.save();
+      sodas.fetch();
 });
+  // this gives me the object/object result     
 // });
