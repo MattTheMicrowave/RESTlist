@@ -54,11 +54,18 @@
       event.preventDefault();
       var newsoda = new SodaModel;
       newsoda.set({ soda : $('#soda-input').val() });
-      console.log(newsoda);
-      $("#sodas-list ul").append("<li>" + newsoda + "</li>");
-// using '#sodas-list ul' works but '#sodas-list > ul' does not, why???
       newsoda.save();
-      sodas.fetch();
+      sodas.fetch({
+      success: function() {
+        var sodasView = new SodasView({ collection: sodas });
+
+        sodasView.render();
+
+        $("#sodas-list").html(sodasView.el);
+        // $("#sodas-list ul").append("<li>" + newsoda + "</li>");
+// using '#sodas-list ul' works but '#sodas-list > ul' does not, why???
+      }
+      });
 });
-  // this gives me the object/object result     
+  // this gives me the object/object result
 // });
