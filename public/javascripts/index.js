@@ -63,7 +63,7 @@
         sodasView.render();
 
         $("#sodas-list").html(sodasView.el);
-        $('#soda-input').val("");
+        $('#soda-input').val(""); // this clears the text box after submit
 
 // using '#sodas-list ul' works but '#sodas-list > ul' does not, why???
       }
