@@ -1,4 +1,5 @@
 // $(document).ready(function() {
+  // the following extends the backbone model object
   var SodaModel = Backbone.Model.extend ({
       urlRoot: '/sodas',
       idAttribute: '_id',
@@ -6,7 +7,7 @@
   });
 
 
-
+  // the following extends the backbone collection object
   var SodasCollection = Backbone.Collection.extend({
       url: '/sodas',
       model: SodaModel
@@ -62,10 +63,12 @@
         sodasView.render();
 
         $("#sodas-list").html(sodasView.el);
-        // $("#sodas-list ul").append("<li>" + newsoda + "</li>");
+        $('#soda-input').val("");
+
 // using '#sodas-list ul' works but '#sodas-list > ul' does not, why???
       }
       });
 });
-  // this gives me the object/object result
+  // this gives me the object/object result and clears the text box
+  // after submission
 // });
