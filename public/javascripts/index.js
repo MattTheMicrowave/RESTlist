@@ -13,6 +13,26 @@
       model: SodaModel
   });
 
+  var FormView = Backbone.View.extend({
+    el: '<form method="POST" action="/sodas">\
+          <input id="soda-input" type="text" name="soda">\
+          <input type="submit" value="Submit">\
+        </form>\
+        ',
+
+    render: function() {
+      // $(this.el).html('#soda-form');
+
+      return this;
+
+    },
+
+    initialize: function() {
+      this.listenTo(this.$el('form'), 'submit', this.render);
+    }
+
+  });
+
   var SodasView = Backbone.View.extend({
       el: '<div></div>',
 
@@ -25,50 +45,49 @@
       '),
 
       render: function() {
-                  $(this.el).html(this.template({ sodas: this.collection }));
+        $(this.el).html(this.template({ sodas: this.collection }));
 
-                  return this;
-              }
+        return this;
+      },
 
-      // initialize: function() {
-      //     console.log('SodasView initialized!')
-      // }
-
-      });
-
-  var sodas = new SodasCollection();
-
-  sodas.fetch({
-      success: function() {
-
-          console.log(sodas);
-
-          var sodasView = new SodasView({ collection: sodas });
-
-          sodasView.render();
-
-          $("#sodas-list").html(sodasView.el);
+      initialize: function() {
+        this.listenTo(this.collection, 'update', this.render);
       }
+
   });
 
+  var sodas = new SodasCollection();
+  var sodasView = new SodasView({ collection: sodas });
+  var formView = new FormView();
+
+  sodasView.render();
+  formView.render();
+  $("#sodas-list").html(sodasView.el);
+  $("#soda-form").html(formView.el);
+
+  sodas.fetch();
+
   $('#soda-form').on('submit', function() {
-      event.preventDefault();
-      var newsoda = new SodaModel;
-      newsoda.set({ soda : $('#soda-input').val() });
-      newsoda.save();
-      sodas.fetch({
-      success: function() {
-        var sodasView = new SodasView({ collection: sodas });
-
-        sodasView.render();
-
-        $("#sodas-list").html(sodasView.el);
-        $('#soda-input').val(""); // this clears the text box after submit
-
-// using '#sodas-list ul' works but '#sodas-list > ul' does not, why???
-      }
-      });
-});
+    event.preventDefault();
+    var newsoda = new SodaModel;
+    newsoda.set({ soda : $('#soda-input').val() });
+    newsoda.save();
+    sodas.add(newsoda);
+    $('#soda-input').val(""); // this clears the text box after submit
+  });
+    // sodas.fetch();
+//       success: function() {
+//         var sodasView = new SodasView({ collection: sodas });
+//
+//         sodasView.render();
+//
+//         $("#sodas-list").html(sodasView.el);
+//         $('#soda-input').val(""); // this clears the text box after submit
+//
+// // using '#sodas-list ul' works but '#sodas-list > ul' does not, why???
+//       }
+//       });
+// });
   // this gives me the object/object result and clears the text box
   // after submission
 // });
