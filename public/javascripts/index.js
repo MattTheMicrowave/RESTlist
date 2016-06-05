@@ -35,15 +35,15 @@
 
     stopForm: function (event) {
         event.preventDefault();
+        var newsoda = new SodaModel;
+        newsoda.set({ soda : $('#soda-input').val() });
+        newsoda.save();
+        sodas.add(newsoda);
+        $('#soda-input').val("");
     }
 
 
-    //         // var newsoda = new SodaModel;
-    //         // newsoda.set({ soda : $('#soda-input').val() });
-    //         // newsoda.save();
-    //         // sodas.add(newsoda);
-    //         // $('#soda-input').val("");
-
+            
   });
 
   var SodasView = Backbone.View.extend({
