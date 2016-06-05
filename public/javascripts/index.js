@@ -28,7 +28,14 @@
     },
 
     initialize: function() {
-      this.listenTo(this.$el('form'), 'submit', this.render);
+        this.listenTo(this.$el('form'), 'submit', function() {
+            event.preventDefault();
+            var newsoda = new SodaModel;
+            newsoda.set({ soda : $('#soda-input').val() });
+            newsoda.save();
+            sodas.add(newsoda);
+            $('#soda-input').val("");
+        });
     }
 
   });
@@ -67,14 +74,14 @@
 
   sodas.fetch();
 
-  $('#soda-form').on('submit', function() {
-    event.preventDefault();
-    var newsoda = new SodaModel;
-    newsoda.set({ soda : $('#soda-input').val() });
-    newsoda.save();
-    sodas.add(newsoda);
-    $('#soda-input').val(""); // this clears the text box after submit
-  });
+  // $('#soda-form').on('submit', function() {
+  //   event.preventDefault();
+  //   var newsoda = new SodaModel;
+  //   newsoda.set({ soda : $('#soda-input').val() });
+  //   newsoda.save();
+  //   sodas.add(newsoda);
+  //   $('#soda-input').val(""); // this clears the text box after submit
+  // });
     // sodas.fetch();
 //       success: function() {
 //         var sodasView = new SodasView({ collection: sodas });
