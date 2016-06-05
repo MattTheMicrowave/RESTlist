@@ -22,21 +22,27 @@
 
     render: function() {
       // $(this.el).html('#soda-form');
-
+      this.listenTo(this.el, 'submit', function(event) {
+          event.preventDefault();
+      });
       return this;
 
     },
 
-    initialize: function() {
-        this.listenTo(this.$el, 'submit', function() {
-            event.preventDefault();
-            var newsoda = new SodaModel;
-            newsoda.set({ soda : $('#soda-input').val() });
-            newsoda.save();
-            sodas.add(newsoda);
-            $('#soda-input').val("");
-        });
+    events: {
+        'submit' : 'stopForm'
+    },
+
+    stopForm: function (event) {
+        event.preventDefault();
     }
+
+
+    //         // var newsoda = new SodaModel;
+    //         // newsoda.set({ soda : $('#soda-input').val() });
+    //         // newsoda.save();
+    //         // sodas.add(newsoda);
+    //         // $('#soda-input').val("");
 
   });
 
