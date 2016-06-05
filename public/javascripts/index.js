@@ -28,7 +28,7 @@
     },
 
     initialize: function() {
-        this.listenTo(this.$el('form'), 'submit', function() {
+        this.listenTo(this.$el, 'submit', function() {
             event.preventDefault();
             var newsoda = new SodaModel;
             newsoda.set({ soda : $('#soda-input').val() });
@@ -67,12 +67,19 @@
   var sodasView = new SodasView({ collection: sodas });
   var formView = new FormView();
 
-  sodasView.render();
-  formView.render();
-  $("#sodas-list").html(sodasView.el);
-  $("#soda-form").html(formView.el);
 
-  sodas.fetch();
+  sodas.fetch({
+      success: function() {
+          console.log('y');
+          sodasView.render();
+          formView.render();
+          $("#sodas-list").html(sodasView.el);
+          $("#soda-form").html(formView.el);
+      }
+  });
+
+  // this callback is crucial
+
 
   // $('#soda-form').on('submit', function() {
   //   event.preventDefault();
