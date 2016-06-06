@@ -38,12 +38,12 @@
         var newsoda = new SodaModel;
         newsoda.set({ soda : $('#soda-input').val() });
         newsoda.save();
-        sodas.add(newsoda);
+        this.collection.add(newsoda);
         $('#soda-input').val("");
     }
 
 
-            
+
   });
 
   var SodasView = Backbone.View.extend({
@@ -71,7 +71,7 @@
 
   var sodas = new SodasCollection();
   var sodasView = new SodasView({ collection: sodas });
-  var formView = new FormView();
+  var formView = new FormView({ collection: sodas });
 
 
   sodas.fetch({
